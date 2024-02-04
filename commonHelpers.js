@@ -1,0 +1,12 @@
+import{i as a,S as m}from"./assets/vendor-46aac873.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const n of t.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&s(n)}).observe(document,{childList:!0,subtree:!0});function i(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerpolicy&&(t.referrerPolicy=e.referrerpolicy),e.crossorigin==="use-credentials"?t.credentials="include":e.crossorigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function s(e){if(e.ep)return;e.ep=!0;const t=i(e);fetch(e.href,t)}})();const f=document.querySelector(".form"),l=document.querySelector(".gallery"),c=document.querySelector(".loader");f.addEventListener("submit",g);function d(){c.style.display="block"}function g(o){o.preventDefault(),l.innerHTML="";const r=o.target.elements.input.value;if(r.trim())d(),y(r),o.currentTarget.reset();else return a.error({title:"❕",theme:"light",message:"Please, fill in the search field",messageSize:"20px",messageColor:"#808080",backgroundColor:"#EF4040",position:"topLeft",timeout:2500})}function h(){c.style.display="none"}function y(o){const r="https://pixabay.com",i="/api/",s=new URLSearchParams({key:"42189534-0458e72641624c0165f7139a5",q:`${o}`,image_type:"photo",orientation:"horizontal",safesearch:"true"}),e=r+i+"?"+s;fetch(e,s).then(t=>t.json()).then(t=>{const n=t.hits;n.length===0&&L(),b(n),spanLoader.remove()}).catch(t=>{a.error({messageColor:"#FFF",color:"#EF4040",position:"topRight",message:`${t}`})}),h()}function L(){l.innerHTML="",a.error({messageColor:"#FFF",color:"#EF4040",position:"topRight",message:"Sorry, there are no images matching your search query. Please try again!"})}function b(o){const r=o.map(({largeImageURL:i,webformatURL:s,tags:e,likes:t,views:n,comments:p,downloads:u})=>`<li class='gallery-item'>
+  <a class='gallery-link' href='${i}'>
+    <img class='gallery-image' src='${s}' alt='${e}'/>
+  </a>
+<div class='container-app'>
+<p><span>Likes</span> ${t}</p>
+<p><span>Views</span> ${n}</p>
+<p><span>Comments</span> ${p}</p>
+<p><span>Downloads</span> ${u}</p>
+</div>
+ </li>`).join("");l.insertAdjacentHTML("afterBegin",r),F()}function F(){const o=new m(".gallery a",{captionsData:"alt",captionsPosition:"bottom",captionDelay:250});o.on("show.simpleLightbox"),o.refresh()}
+//# sourceMappingURL=commonHelpers.js.map
