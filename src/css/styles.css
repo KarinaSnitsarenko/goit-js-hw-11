@@ -93,7 +93,7 @@ a:hover>img {
 }
 
 .loader::after {
-  animation-delay: 1s;
+  animation-delay: 2s;
 }
 
 .image-info {
@@ -173,7 +173,6 @@ img {
 .search-btn:hover {
   background-color: #6c8cff;
 }
-
 
 .is-hidden {
   opacity: 0;

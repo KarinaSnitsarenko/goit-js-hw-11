@@ -12,10 +12,6 @@ const loader = document.querySelector('.loader');
 
 form.addEventListener('submit', onFormSubmit);
 
-function showLoader() {
-  loader.style.display = 'block';
-}
-
 function onFormSubmit(e) {
   e.preventDefault();
   gallery.innerHTML = '';
@@ -33,15 +29,12 @@ function onFormSubmit(e) {
       timeout: 2500,
     });
   } else {
-    showLoader();
     getPhotos(searchQuery);
     e.currentTarget.reset();
   }
 }
 
-function hideLoader() {
-  loader.style.display = 'none';
-}
+loader.classList.remove('is-hidden');
 
 function getPhotos(name) {
   const BASE_URL = 'https://pixabay.com';
