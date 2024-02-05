@@ -40,7 +40,7 @@ function getPhotos(name) {
   const END_POINT = '/api/';
   const searchParams = new URLSearchParams({
     key: '42189534-0458e72641624c0165f7139a5',
-    q: `${name}`,
+    q: name,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: 'true',
@@ -58,7 +58,6 @@ function getPhotos(name) {
         noImages();
       }
       renderPhoto(arrayPhotos);
-      // loader.classList.add('loading'); //'is-hidden'
     })
     .catch(error => {
       iziToast.error({
@@ -72,7 +71,6 @@ function getPhotos(name) {
 }
 
 function noImages() {
-  gallery.innerHTML = '';
   iziToast.error({
     messageColor: '#FFF',
     color: '#EF4040',
