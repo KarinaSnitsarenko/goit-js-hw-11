@@ -29,12 +29,11 @@ function onFormSubmit(e) {
       timeout: 2500,
     });
   } else {
+    loader.classList.add('loading');
     getPhotos(searchQuery);
     e.currentTarget.reset();
   }
 }
-
-loader.classList.remove('is-hidden');
 
 function getPhotos(name) {
   const BASE_URL = 'https://pixabay.com';
@@ -59,7 +58,7 @@ function getPhotos(name) {
         noImages();
       }
       renderPhoto(arrayPhotos);
-      spanLoader.remove();
+      // loader.classList.add('loading'); //'is-hidden'
     })
     .catch(error => {
       iziToast.error({
@@ -68,8 +67,8 @@ function getPhotos(name) {
         position: 'topRight',
         message: `${error}`,
       });
-    });
-  hideLoader();
+    })
+    .finally(() => loader.classList.remove('loading'));
 }
 
 function noImages() {
