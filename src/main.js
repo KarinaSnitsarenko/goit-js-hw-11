@@ -10,6 +10,12 @@ const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 
+const toastSettings = {
+  messageColor: '#FFF',
+  color: '#EF4040',
+  position: 'topRight',
+};
+
 form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
@@ -35,6 +41,7 @@ function onFormSubmit(e) {
   }
 }
 
+//  ====== backend request =======
 function getPhotos(name) {
   const BASE_URL = 'https://pixabay.com';
   const END_POINT = '/api/';
@@ -48,7 +55,7 @@ function getPhotos(name) {
 
   const url = BASE_URL + END_POINT + '?' + searchParams;
 
-  fetch(url, searchParams)
+  fetch(url)
     .then(response => {
       return response.json();
     })
@@ -61,9 +68,7 @@ function getPhotos(name) {
     })
     .catch(error => {
       iziToast.error({
-        messageColor: '#FFF',
-        color: '#EF4040',
-        position: 'topRight',
+        ...toastSettings,
         message: `${error}`,
       });
     })
@@ -72,9 +77,7 @@ function getPhotos(name) {
 
 function noImages() {
   iziToast.error({
-    messageColor: '#FFF',
-    color: '#EF4040',
-    position: 'topRight',
+    ...toastSettings,
     message:
       'Sorry, there are no images matching your search query. Please try again!',
   });
@@ -106,15 +109,16 @@ function renderPhoto(photos) {
     )
     .join('');
   gallery.insertAdjacentHTML('afterBegin', markup);
-  simpleLightbox();
+  updateSimpleLightbox();
 }
 
-function simpleLightbox() {
-  const galleryList = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionsPosition: 'bottom',
-    captionDelay: 250,
-  });
-  galleryList.on('show.simpleLightbox');
+//  ====== SimpleLightbox =======
+const galleryList = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionsPosition: 'bottom',
+  captionDelay: 250,
+});
+
+function updateSimpleLightbox() {
   galleryList.refresh();
 }
